@@ -153,3 +153,29 @@ describe("Minus operation", function() {
 
 });
 
+describe("Division", function() {
+
+	var sut = undefined;
+
+	beforeEach(function() {
+		sut = sap.ui.controller("ui5calculator.Calculator");
+		sut.onInit();
+	});
+	
+	it("4 / 2 = 2", function() {
+		sut.buttonPressed("4");
+		sut.buttonPressed("/");
+		sut.buttonPressed("2");
+		sut.buttonPressed("=");
+		expect(sut.model.getProperty("/display")).toBe(2);
+	});
+	it("1 / 2 = 0.5", function() {
+		sut.buttonPressed("1");
+		sut.buttonPressed("/");
+		sut.buttonPressed("2");
+		sut.buttonPressed("=");
+		expect(sut.model.getProperty("/display")).toBe(0.5);
+	});
+
+});
+

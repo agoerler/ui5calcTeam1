@@ -111,6 +111,14 @@ sap.ui.controller("ui5calculator.Calculator", {
 			this.operation = '/';
 			return;
 		}
+		
+		if ('1/x' == button) {
+			this.operand = this.model.getProperty("/display");
+			this.setDisplayValue(1/this.operand);
+//			this.startNext = true;
+//			this.operation = '1/x';
+			return;
+		}
 
 		this.handleAsDigit(button);
 	}
