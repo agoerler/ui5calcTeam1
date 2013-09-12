@@ -113,3 +113,43 @@ describe("Equals w/o operation does keep display value unchanged", function() {
 	});
 
 });
+
+describe("Plus minus operation", function() {
+
+	var sut = undefined;
+
+	beforeEach(function() {
+		sut = sap.ui.controller("ui5calculator.Calculator");
+		sut.onInit();
+	});
+	
+	it("4 + 3 +/- = 1", function() {
+		sut.buttonPressed("4");
+		sut.buttonPressed("+");
+		sut.buttonPressed("3");
+		sut.buttonPressed("+/-");
+		sut.buttonPressed("=");
+		expect(sut.model.getProperty("/display")).toBe(1);
+	});
+
+});
+
+describe("Minus operation", function() {
+
+	var sut = undefined;
+
+	beforeEach(function() {
+		sut = sap.ui.controller("ui5calculator.Calculator");
+		sut.onInit();
+	});
+	
+	it("4 - 3 = 1", function() {
+		sut.buttonPressed("4");
+		sut.buttonPressed("-");
+		sut.buttonPressed("3");
+		sut.buttonPressed("=");
+		expect(sut.model.getProperty("/display")).toBe(1);
+	});
+
+});
+

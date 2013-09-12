@@ -3,6 +3,7 @@ sap.ui.controller("ui5calculator.Calculator", {
 
 	operand : undefined,
 	startNext : true,
+	operation: undefined,
 
 	/**
 	 * Called when a controller is instantiated and its View controls (if
@@ -42,7 +43,7 @@ sap.ui.controller("ui5calculator.Calculator", {
 	//
 	// },
 	setDisplayValue : function(value) {
-		value = parseInt("" + value);
+		value = parseFloat("" + value);
 		this.model.setProperty("/display", value);
 	},
 
@@ -70,14 +71,44 @@ sap.ui.controller("ui5calculator.Calculator", {
 		if ('+' == button) {
 			this.operand = this.model.getProperty("/display");
 			this.startNext = true;
+			this.operation = '+';
 			return;
 		}
 
 		if ('=' == button) {
 			if (this.operand) {
-				var sum = this.model.getProperty("/display") + this.operand;
-				this.setDisplayValue(sum);
+				if(this.operation == '+'){
+					var sum = this.model.getProperty("/display") + this.operand;
+					this.setDisplayValue(sum);
+				}
+				if(this.operation == '-'){
+					var difference = this.operand - this.model.getProperty("/display");
+					this.setDisplayValue(difference);
+				}
+				if(this.operation == '/'){
+					var division = this.operand / this.model.getProperty("/display");
+					this.setDisplayValue(division);
+				}
 			}
+			return;
+		}
+		
+		if ('+/-' == button) {
+				this.setDisplayValue(this.model.getProperty("/display")*-1);
+			return;
+		}
+		
+		if ('-' == button) {
+			this.operand = this.model.getProperty("/display");
+			this.startNext = true;
+			this.operation = '-';
+			return;
+		}
+		
+		if ('/' == button) {
+			this.operand = this.model.getProperty("/display");
+			this.startNext = true;
+			this.operation = '/';
 			return;
 		}
 
